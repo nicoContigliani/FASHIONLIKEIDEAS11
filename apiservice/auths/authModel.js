@@ -11,18 +11,16 @@ const register = async (elemento) => {
   const email = elemento.email;
   const password = elemento.password;
   // const id_rol = elemento.id_rol
-  const id_rol = 2
+  const id_rol = process.env.id_rol || 5
 
 
   const resultados = userss.filter(u => u.email === email)
   if (resultados.length >= 1) {
-    users.push(
-      {
-        "id_user": "0",
-        "email": "User Exist",
-        "error": 401
-      }
-    )
+    users.push({
+      "id_user": "0",
+      "email": "User Exist",
+      "error": 401
+    })
   } else {
     const hashedPassword = await bcrypt.hash(password, 10)
     const newUser = { email, fullname, hashedPassword, id_rol }
@@ -50,28 +48,24 @@ const login = async (elemento) => {
   if (resultados.length === 0) {
     console.log("not email")
 
-    users.push([
-      {
-        "id_user": 0,
-        "email": "not user",
-        "password": "not compare ",
-        "error": 401
-      }
-    ])
+    users.push([{
+      "id_user": 0,
+      "email": "not user",
+      "password": "not compare ",
+      "error": 401
+    }])
   } else {
 
     if (resultados.length >= 1 && await bcrypt.compare(password, resultados[0].password)) {
       users.push(resultados)
     } else {
 
-      users.push([
-        {
-          "id_user": 0,
-          "email": "user exist",
-          "password": "error",
-          "error": 401
-        }
-      ])
+      users.push([{
+        "id_user": 0,
+        "email": "user exist",
+        "password": "error",
+        "error": 401
+      }])
     }
   }
 

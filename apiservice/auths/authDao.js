@@ -1,15 +1,19 @@
 const pool = require('../../services/database');
 const bcrypt = require('bcrypt')
+require('dotenv').config({ path: './.env' })
 
 
 
-const getUser = async () => {
+
+
+
+const getUser = async() => {
 
     const response = await pool.query('SELECT * FROM public.users;');
     const users = response.rows;
     return users
 };
-const getUserR = async (data) => {
+const getUserR = async(data) => {
 
     //    const {email,fullname}=data;
     const response = await pool.query("SELECT * FROM public.users where email ='" + data + "'");
@@ -17,21 +21,22 @@ const getUserR = async (data) => {
     return users
 };
 
-const registerGet = async () => {
+const registerGet = async() => {
     const response = await pool.query('SELECT * FROM public.users;');
     user = response.rows
     return user
 }
-const LoginGet = async () => {
+const LoginGet = async() => {
     const response = await pool.query('SELECT * FROM public.users;');
     user = response.rows
     return user
 }
-const RegisterPost = async (newUsers) => {
+const RegisterPost = async(newUsers) => {
     const password = newUsers.hashedPassword;
     const fullname = newUsers.fullname;
     const email = newUsers.email;
-    const id_rol = newUsers.id_rol;
+    // const id_rol = newUsers.id_rol;
+    const id_rol = process.env.id_rol || 1;
     try {
         const response = await pool.query('INSERT INTO public.users (fullname, password,email,id_rol) VALUES ($1, $2,$3,$4)', [fullname, password, email, id_rol]);
         return user
