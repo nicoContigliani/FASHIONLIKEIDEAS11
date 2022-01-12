@@ -63,15 +63,14 @@ const deletePost = async (id_post) => {
     }
 }
 
-const updateBudget = async (everything) => {
+const updatePost = async (everything) => {
     console.log(everything)
     try {
 
-        const { concept, amount, date, id_user, type, id_budget } = everything;
-        const response = await pool.query('UPDATE public.budgets SET concept = $1, amount = $2,"date" =$3, id_user=$4 , "type"=$5 where id_budget = $6', [
-            concept, amount, date, id_user, type, id_budget
+        const { title, bodys, urlimg, id_post } = everything;
+        const response = await pool.query('UPDATE public.post SET title = $1, bodys = $2,urlimg =$3 where id_post = $4', [
+            title, bodys, urlimg, id_post
         ]);
-
 
         budgets = response.rows
         return budgets
@@ -87,6 +86,6 @@ module.exports = {
     getPost,
     savePost,
     deletePost,
-    updateBudget,
+    updatePost,
 
 }

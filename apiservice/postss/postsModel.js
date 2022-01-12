@@ -24,7 +24,7 @@ const deletePost = async (id_budget) => {
   return budget
 }
 const updateBudget = async (everything) => {
-  const budget = await postsDao.updateBudget(everything)
+  const budget = await postsDao.updatePost(everything)
   return budget
 }
 
