@@ -9,21 +9,21 @@ const getLikes = async () => {
 }
 
 const getLikesId = async (id_user) => {
-  const likes = await likesDao.getLikes(id_user)
+  const likes = await likesDao.getLikesId(id_user)
   return likes
 }
 
 
-const saveBudget = async (resource) => {
-  const budget = await budgetDao.saveBudget(resource)
+const saveLikes = async (resource) => {
+  const likes = await likesDao.saveLikes(resource)
+  return likes
+}
+const deleteLikes = async (id_budget) => {
+  const budget = await likesDao.deleteLikes(id_budget)
   return budget
 }
-const deleteBudget = async (id_budget) => {
-  const budget = await budgetDao.deleteBudget(id_budget)
-  return budget
-}
-const updateBudget = async (everything) => {
-  const budget = await budgetDao.updateBudget(everything)
+const updateLikes = async (everything) => {
+  const budget = await likesDao.updateLikes(everything)
   return budget
 }
 
@@ -32,7 +32,7 @@ const updateBudget = async (everything) => {
 module.exports = {
   getLikes,
   getLikesId,
-  saveBudget,
-  deleteBudget,
-  updateBudget
+  saveLikes,
+  deleteLikes,
+  updateLikes
 }

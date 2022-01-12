@@ -20,7 +20,7 @@ const getLikes = async () => {
 const getLikesId = async (id_user) => {
     // console.log(id_user)
     try {
-        const response = await pool.query('SELECT *  FROM public.budgets WHERE id_user =' + id_user + ' ORDER BY id_budget desc');
+        const response = await pool.query('SELECT *  FROM public.likess WHERE id_user =' + id_user + ' ORDER BY id_likes desc');
         user = response.rows
         return user
     } catch (error) {
@@ -29,15 +29,12 @@ const getLikesId = async (id_user) => {
     }
 }
 
-
-
-
-const saveBudget = async (resource) => {
-    const { concept, amount, date, id_user, type } = resource;
+const saveLikes = async (resource) => {
+    const { likes, id_user, id_post } = resource;
     try {
-        const response = await pool.query('INSERT INTO public.budgets (concept, amount, "date", id_user, "type") VALUES ($1,$2,$3,$4,$5)', [concept, amount, date, id_user, type]);
-        budgets = response
-        return budgets
+        const response = await pool.query('INSERT INTO public.likess (likes, id_user, id_post ) VALUES ($1,$2,$3)', [likes, id_user, id_post]);
+        likess = response
+        return likess
     } catch (error) {
         console.log(error)
 
@@ -47,31 +44,34 @@ const saveBudget = async (resource) => {
 
 
 
-const deleteBudget = async (id_budget) => {
+const deleteLikes = async (id_like) => {
     try {
-        const response = await pool.query('DELETE FROM public.budgets WHERE id_budget = $1', [
-            id_budget
+        const response = await pool.query('DELETE FROM public.likess WHERE id_like = $1', [
+            id_like
         ]);
-        budgets = response.rows
-        return budgets
+        likes = response.rows
+        return likes
     } catch (error) {
         console.log(error)
 
     }
 }
 
-const updateBudget = async (everything) => {
+const updateLikes = async (everything) => {
     console.log(everything)
+
+
+
     try {
 
-        const { concept, amount, date, id_user, type, id_budget } = everything;
-        const response = await pool.query('UPDATE public.budgets SET concept = $1, amount = $2,"date" =$3, id_user=$4 , "type"=$5 where id_budget = $6', [
-            concept, amount, date, id_user, type, id_budget
+        const { likes, id_user, id_post, id_likes } = everything;
+        const response = await pool.query('UPDATE public.likess SET  likes= $1,id_user=$2,id_post=$3 where id_likes=$4', [
+            likes, id_user, id_post, id_likes
         ]);
 
 
-        budgets = response.rows
-        return budgets
+        const likess = response.rows
+        return likess
     } catch (error) {
         console.log(error)
 
@@ -83,8 +83,8 @@ module.exports = {
     // getBudgets,
     getLikes,
     getLikesId,
-    saveBudget,
-    deleteBudget,
-    updateBudget,
+    saveLikes,
+    deleteLikes,
+    updateLikes,
 
 }
