@@ -22,7 +22,7 @@ router.use('/auth', auth);
 router.use('/users', users);
 router.use('/budgets', auths, budgets);
 router.use('/posts', auths, posts);
-router.use('/likes', likes);
+router.use('/likes', auths, likes);
 
 
 
