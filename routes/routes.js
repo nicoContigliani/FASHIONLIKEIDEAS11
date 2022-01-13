@@ -9,6 +9,7 @@ const budgets = require('../apiservice/budgets/budgetRoutes')
 const auth = require('../apiservice/auths/authRoutes')
 const posts = require('../apiservice/postss/postsRoutes')
 const likes = require('../apiservice/likes/likesRoutes')
+const stadistics = require('../apiservice/stadistics/stadisticsRoutes')
 
 
 
@@ -23,6 +24,7 @@ router.use('/users', users);
 router.use('/budgets', auths, budgets);
 router.use('/posts', auths, posts);
 router.use('/likes', auths, likes);
+router.use('/stadistics', stadistics)
 
 
 
